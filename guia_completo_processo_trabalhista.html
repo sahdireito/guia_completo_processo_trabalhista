@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo do Trabalho — Guia Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: #07101F !important;
+  color: #E0EAFF;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+.page { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 5rem; background: #07101F; }
+
+/* ── NAV PILLS ── */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  position: sticky; top: 0; z-index: 100;
+  background: #07101F;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #152040;
+}
+.nav a {
+  background: #0E1E38; border: 1px solid #1E3A6E;
+  color: #7EB8FF; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 0.3rem 0.8rem; border-radius: 20px;
+  text-decoration: none; transition: all 0.2s;
+}
+.nav a:hover { background: #D4A017; color: #000; border-color: #D4A017; }
+
+/* ── HEADER ── */
+.site-header {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  background: linear-gradient(180deg, #0E1E38 0%, #07101F 100%);
+  border-radius: 20px;
+  border: 1px solid #1E3A6E;
+  margin-bottom: 2rem;
+}
+.site-badge {
+  display: inline-block; background: #D4A017; color: #000;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.site-header h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 800; color: #FFF; line-height: 1.2; }
+.site-header h1 span { color: #FFD34E; }
+.site-header p { margin-top: 0.5rem; font-size: 0.85rem; color: #7090B0; }
+
+/* ── TIMELINE FLOW ── */
+.tl-flow {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 4px; justify-content: center;
+  background: #0E1E38; border: 1.5px solid #1E3A6E;
+  border-radius: 14px; padding: 1.2rem; margin-bottom: 2rem;
+}
+.tl-node {
+  background: #1A3A6E; border: 2px solid #2E6ABF;
+  color: #FFF; font-size: 0.68rem; font-weight: 700;
+  padding: 0.4rem 0.75rem; border-radius: 8px;
+  text-align: center; line-height: 1.3; white-space: nowrap;
+}
+.tl-node.gold { background: #2A1C00; border-color: #D4A017; color: #FFD34E; }
+.tl-node.red  { background: #2A0808; border-color: #C0392B; color: #FF8080; }
+.tl-arr { color: #2E78D2; font-size: 1rem; padding: 0 2px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 2.5rem; scroll-margin-top: 80px; }
+.section-header {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.section-num {
+  background: #D4A017; color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 700;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title { font-size: 1.15rem; font-weight: 800; color: #FFF; }
+.section-sub { font-size: 0.78rem; color: #5577AA; margin-top: 0.1rem; font-family: 'JetBrains Mono', monospace; }
+
+/* ── INFO BOX (artigo/lei) ── */
+.lei-box {
+  background: #0D1E3A; border: 1px solid #1E3A6E;
+  border-left: 4px solid #2E78D2;
+  border-radius: 10px; padding: 0.9rem 1.1rem;
+  margin-bottom: 1.2rem; font-size: 0.85rem; color: #A0C4F0;
+  line-height: 1.6;
+}
+.lei-box strong { color: #7EB8FF; }
+
+/* ── ESTRUTURA ACCORDION ── */
+.estrutura { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.2rem; }
+.item {
+  background: #0E1E38; border: 1.5px solid #1E3A6E;
+  border-radius: 12px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.item:hover { border-color: #2E78D2; }
+.item.open .item-body { display: block; }
+.item.open .item-chevron { transform: rotate(180deg); }
+
+.item-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.8rem 1rem; cursor: pointer;
+}
+.item-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; flex-shrink: 0; font-weight: 700;
+}
+.item-label { flex: 1; font-size: 0.88rem; font-weight: 700; color: #E0EAFF; }
+.item-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 12px;
+  white-space: nowrap;
+}
+.item-chevron { color: #3A5A88; font-size: 0.75rem; transition: transform 0.25s; }
+
+.item-body { display: none; padding: 0 1rem 1rem; }
+.item-divider { height: 1px; background: #152040; margin-bottom: 0.9rem; }
+.item-desc { font-size: 0.85rem; color: #B0C8E8; line-height: 1.65; margin-bottom: 0.7rem; }
+
+.dica-box {
+  background: #1A1400; border: 1px solid #5A3E00;
+  border-left: 4px solid #D4A017; border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+.dica-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #D4A017; margin-bottom: 0.3rem; }
+.dica-text { font-size: 0.82rem; color: #E8C96A; line-height: 1.6; font-style: italic; }
+
+/* ── PRELIMINARES ESPECIAL ── */
+.prelim-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+
+/* ── SENTENÇA FASES ── */
+.fases { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+@media(max-width:500px){ .fases { grid-template-columns: 1fr; } }
+.fase-card {
+  background: #0E1E38; border: 1.5px solid #1E3A6E;
+  border-radius: 12px; padding: 0.9rem 1rem;
+}
+.fase-card h4 { font-size: 0.82rem; font-weight: 700; color: #7EB8FF; margin-bottom: 0.4rem; }
+.fase-card p { font-size: 0.8rem; color: #9AB0CC; line-height: 1.55; }
+
+/* ── RECURSOS SECTION ── */
+.recurso-card {
+  background: #0E1E38; border: 1.5px solid #1E3A6E;
+  border-radius: 14px; overflow: hidden; margin-bottom: 1rem;
+}
+.recurso-card:hover { border-color: #D4A017; }
+.recurso-card.open .rc-body { display: block; }
+.recurso-card.open .rc-chev { transform: rotate(180deg); }
+
+.rc-header {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.9rem 1rem; cursor: pointer;
+}
+.rc-stripe { width: 4px; height: 40px; border-radius: 4px; flex-shrink: 0; }
+.rc-info { flex: 1; }
+.rc-name { font-size: 0.95rem; font-weight: 700; color: #FFF; }
+.rc-sub { font-size: 0.68rem; color: #4A6A9A; font-family: 'JetBrains Mono', monospace; margin-top: 0.1rem; }
+.rc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+.rc-prazo {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700;
+  padding: 0.22rem 0.65rem; border-radius: 20px; white-space: nowrap;
+}
+.prazo-azul   { background: #0E2A55; color: #7EB8FF; border: 1px solid #2E5EA0; }
+.prazo-laranja { background: #2A1800; color: #FFB84D; border: 1px solid #8A4A00; }
+.rc-chev { color: #3A5A88; font-size: 0.75rem; transition: transform 0.25s; }
+
+.rc-body { display: none; padding: 0 1rem 1rem; }
+.rc-divider { height: 1px; background: #152040; margin-bottom: 0.9rem; }
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.8rem; }
+@media(max-width:500px){ .rc-grid { grid-template-columns: 1fr; } }
+.rc-grid.full { grid-template-columns: 1fr; }
+.rci { }
+.rci-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #3A5A88; margin-bottom: 0.25rem; }
+.rci-val { font-size: 0.83rem; color: #B0C8E8; line-height: 1.55; }
+
+/* ── DIVIDER ── */
+.sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #1E3A6E, transparent);
+  margin: 2rem 0;
+}
+
+/* ── MACRO DICA ── */
+.macro {
+  background: #0D1E3A; border: 2px solid #D4A017;
+  border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1.5rem;
+}
+.macro-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #D4A017; margin-bottom: 0.5rem; }
+.macro p { font-size: 0.85rem; color: #B0C8E8; line-height: 1.7; }
+.macro strong { color: #FFD34E; }
+
+footer { text-align: center; margin-top: 3rem; font-size: 0.68rem; color: #1E3050; }
+</style>
+
+
+/* ── EXECUÇÃO EXTRA STYLES ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: #07101F !important;
+  color: #E0EAFF;
+  min-height: 100vh;
+}
+.page-exec { max-width: 820px; margin: 0 auto; padding: 1.5rem 1rem 5rem; background: #07101F; }
+
+/* HEADER */
+.site-header {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  background: linear-gradient(180deg, #0E1E38 0%, #07101F 100%);
+  border-radius: 20px;
+  border: 1px solid #1E3A6E;
+  margin-bottom: 2rem;
+}
+.site-badge {
+  display: inline-block; background: #D4A017; color: #000;
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.site-header h1 { font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 800; color: #FFF; line-height: 1.2; }
+.site-header h1 span { color: #FFD34E; }
+.site-header p { margin-top: 0.5rem; font-size: 0.82rem; color: #7090B0; }
+
+/* MACRO DICA */
+.macro {
+  background: #0D1E3A; border: 2px solid #D4A017;
+  border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 2rem;
+}
+.macro-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #D4A017; margin-bottom: 0.4rem; }
+.macro p { font-size: 0.84rem; color: #B0C8E8; line-height: 1.7; }
+.macro strong { color: #FFD34E; }
+
+/* TIMELINE VERTICAL */
+.timeline { position: relative; padding-left: 2.2rem; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #1E3A6E, #D4A017 50%, #1E3A6E);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+/* Dot on the line */
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -1.65rem;
+  top: 1.1rem;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: #07101F;
+  z-index: 2;
+}
+
+.tl-card {
+  background: #0E1E38;
+  border: 1.5px solid #1E3A6E;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.tl-card:hover { border-color: #D4A017; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.tl-card.open .tc-body { display: block; }
+.tl-card.open .tc-chev { transform: rotate(180deg); }
+
+.tc-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+.tc-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 700;
+  padding: 0.2rem 0.55rem; border-radius: 12px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.tc-title { flex: 1; font-size: 0.9rem; font-weight: 700; color: #FFF; line-height: 1.3; }
+.tc-art {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: #4A6A9A;
+  white-space: nowrap; flex-shrink: 0;
+}
+.tc-chev { color: #3A5A88; font-size: 0.75rem; transition: transform 0.25s; flex-shrink: 0; }
+
+.tc-body { display: none; padding: 0 1rem 1rem; }
+.tc-divider { height: 1px; background: #152040; margin-bottom: 0.85rem; }
+.tc-desc { font-size: 0.84rem; color: #B0C8E8; line-height: 1.65; margin-bottom: 0.8rem; }
+
+/* Alert boxes */
+.alert {
+  display: flex; gap: 0.7rem; align-items: flex-start;
+  border-radius: 8px; padding: 0.7rem 0.9rem; margin-bottom: 0.7rem;
+  font-size: 0.82rem; line-height: 1.55;
+}
+.alert.prazo { background: #0E2A55; border: 1px solid #2E5EA0; color: #A0C8F0; }
+.alert.atencao { background: #2A1800; border: 1px solid #8A4A00; color: #FFB84D; }
+.alert.perigo { background: #2A0808; border: 1px solid #8A2020; color: #FF9090; }
+.alert.verde { background: #0A2A18; border: 1px solid #1A6A3A; color: #70D8A0; }
+.alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+.alert strong { color: inherit; font-weight: 700; }
+
+.dica-box {
+  background: #1A1400; border: 1px solid #5A3E00;
+  border-left: 4px solid #D4A017; border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+.dica-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #D4A017; margin-bottom: 0.3rem; }
+.dica-text { font-size: 0.82rem; color: #E8C96A; line-height: 1.6; font-style: italic; }
+
+/* PENHORA ORDEM */
+.penhora-list { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.6rem 0; }
+.penhora-item {
+  display: flex; align-items: center; gap: 0.7rem;
+  background: #0D1626; border: 1px solid #1E3A6E;
+  border-radius: 8px; padding: 0.5rem 0.8rem;
+}
+.penhora-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700;
+  background: #D4A017; color: #000; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.penhora-txt { font-size: 0.82rem; color: #B0C8E8; }
+
+/* RESUMO TABLE */
+.resumo-section { margin-top: 2.5rem; }
+.sec-title {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: #D4A017; text-align: center; margin-bottom: 1rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+th {
+  background: #0D1E3A; color: #5A90CC; font-weight: 700;
+  font-size: 0.63rem; letter-spacing: 1px; text-transform: uppercase;
+  padding: 0.6rem 0.8rem; text-align: left; border-bottom: 2px solid #1E3A6E;
+}
+td { padding: 0.55rem 0.8rem; border-bottom: 1px solid #141E33; color: #B0C8E8; vertical-align: top; }
+tr:nth-child(even) td { background: #0D1626; }
+.art-cell { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #4A6A9A; white-space: nowrap; }
+.ev-cell { font-weight: 600; color: #E0EAFF; }
+
+footer { text-align: center; margin-top: 3rem; font-size: 0.68rem; color: #1E3050; }
+</style>
+
+
+/* ── SEÇÃO EXECUÇÃO ── */
+#execucao .timeline { position: relative; padding-left: 2.2rem; }
+#execucao .timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #1E3A6E, #D4A017 50%, #1E3A6E);
+}
+#execucao .tl-item { position: relative; margin-bottom: 1rem; }
+#execucao .tl-card {
+  background: #0E1E38; border: 1.5px solid #1E3A6E;
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#execucao .tl-card:hover { border-color: #D4A017; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+#execucao .tl-card.open .tc-body { display: block; }
+#execucao .tl-card.open .tc-chev { transform: rotate(180deg); }
+#execucao .tc-header { display:flex; align-items:center; gap:0.75rem; padding:0.85rem 1rem; }
+#execucao .tc-step {
+  font-family: 'JetBrains Mono', monospace; font-size:0.65rem; font-weight:700;
+  padding:0.2rem 0.55rem; border-radius:12px; white-space:nowrap; flex-shrink:0;
+}
+#execucao .tc-title { flex:1; font-size:0.9rem; font-weight:700; color:#FFF; line-height:1.3; }
+#execucao .tc-art { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#4A6A9A; white-space:nowrap; flex-shrink:0; }
+#execucao .tc-chev { color:#3A5A88; font-size:0.75rem; transition:transform 0.25s; flex-shrink:0; }
+#execucao .tc-body { display:none; padding:0 1rem 1rem; }
+#execucao .tc-divider { height:1px; background:#152040; margin-bottom:0.85rem; }
+#execucao .tc-desc { font-size:0.84rem; color:#B0C8E8; line-height:1.65; margin-bottom:0.8rem; }
+#execucao .alert {
+  display:flex; gap:0.7rem; align-items:flex-start;
+  border-radius:8px; padding:0.7rem 0.9rem; margin-bottom:0.7rem;
+  font-size:0.82rem; line-height:1.55;
+}
+#execucao .alert.prazo  { background:#0E2A55; border:1px solid #2E5EA0; color:#A0C8F0; }
+#execucao .alert.atencao { background:#2A1800; border:1px solid #8A4A00; color:#FFB84D; }
+#execucao .alert.perigo { background:#2A0808; border:1px solid #8A2020; color:#FF9090; }
+#execucao .alert.verde  { background:#0A2A18; border:1px solid #1A6A3A; color:#70D8A0; }
+#execucao .alert-icon { font-size:1rem; flex-shrink:0; margin-top:0.1rem; }
+#execucao .penhora-list { display:flex; flex-direction:column; gap:0.4rem; margin:0.6rem 0; }
+#execucao .penhora-item {
+  display:flex; align-items:center; gap:0.7rem;
+  background:#0D1626; border:1px solid #1E3A6E; border-radius:8px; padding:0.5rem 0.8rem;
+}
+#execucao .penhora-num {
+  font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700;
+  background:#D4A017; color:#000; width:22px; height:22px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+#execucao .penhora-txt { font-size:0.82rem; color:#B0C8E8; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- NAV ATUALIZADA -->
+<nav class="nav">
+  <a href="#reclamacao">Reclamação</a>
+  <a href="#contestacao">Contestação</a>
+  <a href="#preliminares">Preliminares</a>
+  <a href="#sentenca">Sentença</a>
+  <a href="#recursos">Recursos</a>
+  <a href="#execucao">Execução</a>
+</nav>
+
+<div class="page">
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#reclamacao">Reclamação</a>
+  <a href="#contestacao">Contestação</a>
+  <a href="#preliminares">Preliminares</a>
+  <a href="#sentenca">Sentença</a>
+  <a href="#recursos">Recursos</a>
+</nav>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="site-badge">Processo do Trabalho · CLT + CPC</div>
+  <h1>Guia Completo do <span>Processo Trabalhista</span></h1>
+  <p>Da Reclamação ao Recurso Extraordinário — Peças, Prazos e Estruturas</p>
+</div>
+
+<!-- FLOW GERAL -->
+<div class="tl-flow">
+  <div class="tl-node">RECLAMAÇÃO<br>TRABALHISTA</div>
+  <div class="tl-arr">→</div>
+  <div class="tl-node">CONTESTAÇÃO</div>
+  <div class="tl-arr">→</div>
+  <div class="tl-node">INSTRUÇÃO</div>
+  <div class="tl-arr">→</div>
+  <div class="tl-node gold">SENTENÇA</div>
+  <div class="tl-arr">→</div>
+  <div class="tl-node gold">RO / RECURSOS</div>
+  <div class="tl-arr">→</div>
+  <div class="tl-node red">TST / STF</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. RECLAMAÇÃO TRABALHISTA
+══════════════════════════════════════ -->
+<div class="section" id="reclamacao">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Reclamação Trabalhista</div>
+      <div class="section-sub">CLT, arts. 840–852 · A peça inicial do processo</div>
+    </div>
+  </div>
+
+  <div class="lei-box">
+    <strong>Art. 840, CLT</strong> — A reclamação poderá ser escrita ou verbal. Sendo escrita, deve conter a designação do juízo, qualificação das partes, os pedidos com sua natureza, valor e fundamentos, data e assinatura.<br><br>
+    <strong>§1º</strong> (Reforma Trabalhista — Lei 13.467/17): Sendo escrita, a reclamação deverá conter pedidos <strong>certos, determinados e com indicação de seu valor</strong>. A ausência do valor do pedido poderá ensejar arquivamento.<br><br>
+    <strong>Art. 786, CLT</strong>: O reclamante poderá ser representado por advogado ou, no jus postulandi, comparecer pessoalmente (até o TRT).
+  </div>
+
+  <div class="macro">
+    <div class="macro-title">💡 Analogia Geral</div>
+    <p>Pense na reclamação trabalhista como <strong>uma carta de intenções com endereço certo</strong>: você conta quem é, quem te deve, o que te deve, quanto vale e por quê. Sem endereço (juízo), sem destinatário (réu), sem pedido ou sem valor → a carta volta.</p>
+  </div>
+
+  <div class="estrutura" id="rec-estrutura"></div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════════════
+     2. CONTESTAÇÃO
+══════════════════════════════════════ -->
+<div class="section" id="contestacao">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Contestação</div>
+      <div class="section-sub">CLT, art. 847 · CPC, arts. 335–342 (subsidiário)</div>
+    </div>
+  </div>
+
+  <div class="lei-box">
+    <strong>Art. 847, CLT</strong> — Não havendo acordo, o reclamado terá <strong>20 minutos</strong> para aduzir sua defesa, após a leitura da reclamação, quando esta não for dispensada por ambas as partes.<br><br>
+    Na prática forense atual: a contestação é apresentada <strong>por escrito</strong> na audiência inaugural (prazo fixado pelo juiz, geralmente até a audiência de instrução). O prazo do CPC (<strong>15 dias úteis</strong>) é aplicado subsidiariamente quando o processo tramita pelo rito ordinário e há prazo fixado.<br><br>
+    <strong>Princípio da Impugnação Específica (art. 341, CPC)</strong>: o reclamado deve impugnar cada fato alegado pelo autor. O silêncio gera presunção de veracidade (exceto fatos sobre os quais não se admite confissão).
+  </div>
+
+  <div class="macro">
+    <div class="macro-title">💡 Analogia Geral</div>
+    <p>A contestação é a <strong>defesa num jogo de xadrez</strong>: você pode mover peças para bloquear (preliminares), capturar peças do adversário (impugnar os fatos) ou mostrar que o rei dele já está em xeque antes mesmo do mérito (prejudiciais de mérito).</p>
+  </div>
+
+  <div class="estrutura" id="cont-estrutura"></div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════════════
+     3. PRELIMINARES — ART. 337 CPC
+══════════════════════════════════════ -->
+<div class="section" id="preliminares">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">Preliminares de Mérito</div>
+      <div class="section-sub">CPC, art. 337 — aplicado subsidiariamente ao processo do trabalho</div>
+    </div>
+  </div>
+
+  <div class="lei-box">
+    <strong>Art. 337, CPC</strong> — Incumbe ao réu, antes de discutir o mérito, alegar as seguintes preliminares. São matérias de ordem pública que, se acolhidas, impedem o julgamento do mérito — sem que o juiz precise entrar no "fundo" da questão. No processo do trabalho, aplicam-se subsidiariamente (art. 769, CLT).
+  </div>
+
+  <div class="macro">
+    <div class="macro-title">💡 Analogia Geral</div>
+    <p>Preliminares são como <strong>obstáculos na pista antes da largada</strong>. Se o corredor (processo) não consegue passar por eles, a corrida (mérito) nem começa. Cada inciso do art. 337 é um obstáculo diferente.</p>
+  </div>
+
+  <div class="prelim-grid" id="prelim-grid"></div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════════════
+     4. SENTENÇA
+══════════════════════════════════════ -->
+<div class="section" id="sentenca">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Sentença Trabalhista</div>
+      <div class="section-sub">CLT, art. 832 · CPC, art. 489 (subsidiário)</div>
+    </div>
+  </div>
+
+  <div class="lei-box">
+    <strong>Art. 832, CLT</strong> — Da decisão deverão constar o nome das partes, o resumo do pedido e da defesa, a apreciação das provas, os fundamentos da decisão e a conclusão.<br><br>
+    <strong>§1º</strong>: Quando a decisão concluir pela procedência do pedido, determinará o prazo e as condições para o seu cumprimento.<br><br>
+    <strong>Art. 489, CPC</strong> (subsidiário): São elementos essenciais da sentença — <strong>relatório, fundamentação e dispositivo</strong>. A sentença sem fundamentação é nula (art. 93, IX, CF).
+  </div>
+
+  <div class="macro">
+    <div class="macro-title">💡 Analogia Geral</div>
+    <p>A sentença é como <strong>um sanduíche em 3 camadas</strong>: o <strong>relatório</strong> é o pão de baixo (conta a história), a <strong>fundamentação</strong> é o recheio (o raciocínio jurídico, onde está o sabor!) e o <strong>dispositivo</strong> é o pão de cima (a conclusão, o que vale de verdade). Sem o recheio → sentença nula.</p>
+  </div>
+
+  <div class="fases" id="sentenca-fases"></div>
+  <div class="estrutura" id="sent-estrutura"></div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════════════
+     5. RECURSOS
+══════════════════════════════════════ -->
+<div class="section" id="recursos">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Recursos Trabalhistas</div>
+      <div class="section-sub">CLT, arts. 893–910 · A trilha após a sentença</div>
+    </div>
+  </div>
+
+  <div class="tl-flow" style="margin-bottom:1.2rem">
+    <div class="tl-node">SENTENÇA<br>(Vara)</div>
+    <div class="tl-arr">→</div>
+    <div class="tl-node gold">RO → TRT</div>
+    <div class="tl-arr">→</div>
+    <div class="tl-node gold">RR → TST<br>(Turma)</div>
+    <div class="tl-arr">→</div>
+    <div class="tl-node gold">Emb. → SBDI</div>
+    <div class="tl-arr">→</div>
+    <div class="tl-node red">RE → STF</div>
+  </div>
+
+  <div id="recursos-list"></div>
+</div>
+
+<footer>Processo do Trabalho · CLT + CPC Subsidiário · Guia Completo de Peças e Recursos</footer>
+</div><!-- /page -->
+
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════════════
+     6. EXECUÇÃO TRABALHISTA
+══════════════════════════════════════ -->
+<div class="section" id="execucao">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div>
+      <div class="section-title">Execução Trabalhista</div>
+      <div class="section-sub">CLT, arts. 876–888 · Do trânsito em julgado ao encerramento</div>
+    </div>
+  </div>
+
+  <div class="lei-box">
+    <strong>Art. 876, CLT</strong> — As decisões passadas em julgado ou das quais não tenha havido recurso com efeito suspensivo, os acordos, quando não cumpridos, serão executados pela forma estabelecida neste Capítulo.<br><br>
+    <strong>Art. 878, CLT</strong> (após Reforma): A execução será promovida pelas partes, permitida a execução de ofício pelo juiz ou pelo Presidente do Tribunal apenas nos casos em que as partes não estiverem representadas por advogado.
+  </div>
+
+  <div class="macro">
+    <div class="macro-title">💡 Analogia Geral</div>
+    <p>A execução é como <strong>cobrar uma dívida com o apoio da lei</strong>. A sentença disse "você deve" — agora a execução é o processo de <strong>realmente receber</strong>. Primeiro tenta-se o voluntário (amigável). Se não vier, entra o braço forte do Estado: penhora, leilão e satisfação forçada.</p>
+  </div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <div class="resumo-section" style="margin-top:2rem">
+    <div class="sec-title" style="font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#D4A017;text-align:center;margin-bottom:1rem">⚡ Resumo: Eventos e Artigos</div>
+    <table style="width:100%;border-collapse:collapse;font-size:0.8rem">
+      <thead><tr>
+        <th style="background:#0D1E3A;color:#5A90CC;font-weight:700;font-size:0.63rem;letter-spacing:1px;text-transform:uppercase;padding:0.6rem 0.8rem;text-align:left;border-bottom:2px solid #1E3A6E">#</th>
+        <th style="background:#0D1E3A;color:#5A90CC;font-weight:700;font-size:0.63rem;letter-spacing:1px;text-transform:uppercase;padding:0.6rem 0.8rem;text-align:left;border-bottom:2px solid #1E3A6E">Evento</th>
+        <th style="background:#0D1E3A;color:#5A90CC;font-weight:700;font-size:0.63rem;letter-spacing:1px;text-transform:uppercase;padding:0.6rem 0.8rem;text-align:left;border-bottom:2px solid #1E3A6E">Artigo CLT</th>
+      </tr></thead>
+      <tbody id="resumo-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>Processo do Trabalho · CLT + CPC Subsidiário · Guia Completo — Reclamação ao Encerramento da Execução</footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   DADOS
+═══════════════════════════════════════ */
+
+// 1. RECLAMAÇÃO — itens da estrutura
+const recItems = [
+  { icon:"⚖️", cor:"#1A4A8C", label:"Endereçamento", tag:"Obrigatório",
+    tagStyle:"background:#0E2A55;color:#7EB8FF;border:1px solid #2E5EA0",
+    desc:"Indicação do juízo competente: Vara do Trabalho + número (ex.: 1ª Vara do Trabalho de São Paulo). A competência é fixada pelo local da prestação de serviços (art. 651, CLT) ou pelo domicílio do reclamante, se trabalhava em localidade diversa.",
+    dica:"Pense no endereçamento como o CEP da carta: errou o CEP (juízo incompetente), a carta volta — mas em regra pode ser remetida ao juízo certo (declinação de competência)." },
+  { icon:"👤", cor:"#1A4A8C", label:"Qualificação das Partes", tag:"Obrigatório",
+    tagStyle:"background:#0E2A55;color:#7EB8FF;border:1px solid #2E5EA0",
+    desc:"Reclamante: nome completo, CPF, CTPS, endereço, profissão. Reclamado: razão social ou nome, CNPJ/CPF, endereço para citação. Litisconsórcio passivo: indicar todos os reclamados (ex.: tomador de serviços + empresa prestadora em terceirização).",
+    dica:"Sem qualificação completa, o juiz não sabe para quem mandar a citação. É como enviar uma encomenda sem número do apartamento." },
+  { icon:"📋", cor:"#1A6A3A", label:"Breve Relato dos Fatos", tag:"Causa de Pedir",
+    tagStyle:"background:#0A2A18;color:#5FD899;border:1px solid #1A6A3A",
+    desc:"Narração cronológica e clara: data de admissão, cargo, salário, jornada, motivo da rescisão. Deve ser objetiva. A Reforma Trabalhista exige coerência entre os fatos narrados e os pedidos formulados — fatos sem pedido ou pedido sem fato comprometem a petição.",
+    dica:"Conte a história como um filme: começa com a contratação (cena 1), desenvolve com as violações (cena 2) e termina com a rescisão ou o dano (cena 3)." },
+  { icon:"⚙️", cor:"#1A6A3A", label:"Fundamentos Jurídicos", tag:"Causa de Pedir",
+    tagStyle:"background:#0A2A18;color:#5FD899;border:1px solid #1A6A3A",
+    desc:"Artigos da CLT, Constituição Federal, súmulas do TST, OJs e leis especiais que amparam os pedidos. Não é necessário citar todos os fundamentos — o juiz conhece o direito (iura novit curia) — mas indicar robustece a petição.",
+    dica:"Os fundamentos são o 'porquê jurídico' de cada pedido. Fato sem fundamento é como acusação sem lei: o juiz pode até acolher, mas o argumento fica fraco." },
+  { icon:"📝", cor:"#8A2BE2", label:"Pedidos", tag:"Obrigatório + Reforma 13.467/17",
+    tagStyle:"background:#1A0A38;color:#C090FF;border:1px solid #5A30A0",
+    desc:"Devem ser certos, determinados e com valor atribuído (art. 840, §1º, CLT). Cada pedido em tópico separado com o respectivo valor. Ex.: Pedido 1 — Horas extras (R$ X); Pedido 2 — FGTS + multa 40% (R$ Y). Valor total da causa = soma dos pedidos.",
+    dica:"Após a Reforma, pedido sem valor = risco de extinção. É como ir ao supermercado e colocar itens no carrinho sem preço — o caixa não sabe quanto você vai pagar." },
+  { icon:"💰", cor:"#8A2BE2", label:"Valor da Causa", tag:"Obrigatório",
+    tagStyle:"background:#1A0A38;color:#C090FF;border:1px solid #5A30A0",
+    desc:"Corresponde à soma de todos os pedidos. Relevante para: fixação das custas processuais (art. 789, CLT), cabimento do rito sumaríssimo (até 40 salários mínimos) e referência para o depósito recursal.",
+    dica:"Valor da causa = total do carrinho. Se você pede R$ 10.000, o valor da causa é R$ 10.000 — não pode ser simbólico nem absurdo." },
+  { icon:"📅", cor:"#C0392B", label:"Data e Assinatura", tag:"Obrigatório",
+    tagStyle:"background:#2A0808;color:#FF8080;border:1px solid #8A2020",
+    desc:"Assinatura do advogado (com número da OAB) ou do próprio reclamante (jus postulandi). Procuração deve estar anexa se houver representação por advogado. Sem assinatura, o ato é juridicamente inexistente.",
+    dica:"Data e assinatura são a 'autenticação' da peça. Sem elas, o documento não vale — como um cheque sem assinatura." },
+  { icon:"📎", cor:"#C0392B", label:"Documentos e Rol de Provas", tag:"Recomendado",
+    tagStyle:"background:#2A0808;color:#FF8080;border:1px solid #8A2020",
+    desc:"CTPS, contracheques, recibo de rescisão, extrato do FGTS, comunicação de dispensa, entre outros. Rol de testemunhas pode ser indicado ou solicitado prazo para apresentação. Documentos essenciais devem acompanhar a inicial.",
+    dica:"Documentos são as provas do crime. Quanto mais evidências na cena inicial, mais difícil para o réu se defender." },
+];
+
+// 2. CONTESTAÇÃO — itens da estrutura
+const contItems = [
+  { icon:"📍", cor:"#1A4A8C", label:"Endereçamento", tag:"Obrigatório",
+    tagStyle:"background:#0E2A55;color:#7EB8FF;border:1px solid #2E5EA0",
+    desc:"Deve ser endereçada ao mesmo juízo da reclamação. Indicar o número do processo, nome das partes e qualificação do reclamado (advogado, OAB, endereço para intimações).",
+    dica:"Mesma regra da inicial: endereço certo, processo certo." },
+  { icon:"🚧", cor:"#E07B00", label:"Preliminares (art. 337, CPC)", tag:"Se houver",
+    tagStyle:"background:#2A1800;color:#FFB84D;border:1px solid #8A4A00",
+    desc:"Matérias processuais que devem ser alegadas antes do mérito. Se existentes, vêm primeiro — antes de qualquer defesa de fundo. Ver seção 3 deste guia para cada uma delas detalhadamente.",
+    dica:"Preliminares são as primeiras barreiras. Só depois que você tenta derrubá-las é que entra no campo do mérito." },
+  { icon:"⚠️", cor:"#D4A017", label:"Prejudiciais de Mérito", tag:"Se houver",
+    tagStyle:"background:#2A1C00;color:#FFD34E;border:1px solid #7A5000",
+    desc:"Prescrição (art. 7º, XXIX, CF: 5 anos no curso + 2 anos após extinção do contrato) e decadência. Apesar de relacionadas ao mérito, são arguidas antes da defesa de fundo pois, se acolhidas, extinguem o processo com resolução do mérito (art. 487, II, CPC).",
+    dica:"Prescrição e decadência são como um 'prazo de validade' do direito de ação. Se o prazo venceu, o juiz extingue — mas com mérito (coisa julgada material)." },
+  { icon:"❌", cor:"#C0392B", label:"Impugnação dos Fatos (Mérito)", tag:"Essencial",
+    tagStyle:"background:#2A0808;color:#FF8080;border:1px solid #8A2020",
+    desc:"Deve-se impugnar especificamente cada fato narrado pelo reclamante (art. 341, CPC). Silêncio = presunção de veracidade. Técnica: negar os fatos que não ocorreram, qualificar os que ocorreram de forma diferente, apresentar documentos contrários.",
+    dica:"É como um debate: você não pode ficar em silêncio quando o adversário faz uma acusação — cada ponto não contestado vira ponto para ele." },
+  { icon:"📜", cor:"#1A6A3A", label:"Fundamentos Jurídicos da Defesa", tag:"Essencial",
+    tagStyle:"background:#0A2A18;color:#5FD899;border:1px solid #1A6A3A",
+    desc:"Artigos, súmulas e OJs que amparam a defesa do reclamado. Contrapõe os fundamentos da inicial. Ex.: se o reclamante alega vínculo empregatício, o reclamado apresenta fundamentos para afastar os requisitos do art. 3º da CLT.",
+    dica:"Fundamentos da defesa são o 'contra-argumento jurídico'. Você usa a mesma lei, mas de ângulo diferente." },
+  { icon:"📁", cor:"#5B2D8E", label:"Documentos", tag:"Essencial",
+    tagStyle:"background:#1A0A38;color:#C090FF;border:1px solid #5A30A0",
+    desc:"Holerites, cartões de ponto, TRCT, contratos de trabalho, regulamento interno, comunicações, recibos de pagamento de verbas rescisórias, etc. A contestação sem documentos é defesa fraca.",
+    dica:"Na contestação, documentos são seu escudo. Cada documento é uma prova de que o reclamado cumpriu suas obrigações." },
+  { icon:"🙏", cor:"#5B2D8E", label:"Requerimentos Finais", tag:"Obrigatório",
+    tagStyle:"background:#1A0A38;color:#C090FF;border:1px solid #5A30A0",
+    desc:"Requerer: (1) acolhimento das preliminares; (2) prescrição/decadência; (3) improcedência total ou parcial dos pedidos; (4) produção de provas (testemunhal, documental, pericial); (5) condenação do reclamante nas custas e honorários em caso de improcedência.",
+    dica:"Os requerimentos finais são o seu 'placar desejado' ao fim da partida. Você precisa pedir o que quer — o juiz não concede o que não foi pedido." },
+];
+
+// 3. PRELIMINARES — art. 337 CPC
+const prelimItems = [
+  { inc:"I", label:"Inexistência ou Nulidade da Citação", cor:"#C0392B",
+    desc:"Argui-se quando o reclamado não foi devidamente citado ou quando a citação apresenta vício formal grave (citação no endereço errado, sem assinatura do meirinho, etc.). Se acolhida, o processo retrocede para a fase de citação.",
+    dica:"É como receber uma notificação que nunca chegou de verdade: se você não foi chamado corretamente, o processo não pode avançar contra você." },
+  { inc:"II", label:"Incompetência Absoluta e Relativa", cor:"#E07B00",
+    desc:"Incompetência absoluta: em razão da matéria (ex.: questão que não é trabalhista) — pode ser arguida a qualquer tempo, inclusive de ofício. Incompetência relativa: em razão do lugar (ex.: processo na Vara errada) — deve ser arguida na contestação, sob pena de preclusão.",
+    dica:"Absoluta = qualquer um pode gritar, a qualquer hora. Relativa = só o réu pode reclamar, e tem que ser logo — se perder a chance, perdeu." },
+  { inc:"III", label:"Incorreção do Valor da Causa", cor:"#1A9090",
+    desc:"Se o valor atribuído à causa não corresponde à soma dos pedidos ou está manifestamente errado, o reclamado pode impugnar. Relevante porque afeta custas, rito processual (sumaríssimo x ordinário) e depósito recursal.",
+    dica:"Se o reclamante 'subfaturou' ou 'superfaturou' os pedidos, o réu tem o direito de corrigir o preço antes que o processo siga." },
+  { inc:"IV", label:"Inépcia da Petição Inicial", cor:"#C0392B",
+    desc:"A inicial é inepta quando: (a) lhe falta pedido ou causa de pedir; (b) o pedido é indeterminado (salvo exceções legais); (c) da narração dos fatos não decorre logicamente o pedido; (d) contiver pedidos incompatíveis entre si. Acolhida → extinção sem mérito.",
+    dica:"Inicial inepta é como uma receita de bolo sem ingredientes nem modo de preparo. Não tem como o juiz 'assar' o processo assim." },
+  { inc:"V", label:"Perempção", cor:"#7B3DB0",
+    desc:"Ocorre quando o autor abandona o processo por 3 vezes consecutivas (art. 486, §3º, CPC). Na prática trabalhista é rara, mas possível. Extingue sem resolução do mérito.",
+    dica:"Três faltas seguidas = eliminado. É como no jogo: perdeu 3 vidas consecutivas, o personagem não pode mais jogar (por um tempo)." },
+  { inc:"VI", label:"Litispendência", cor:"#1A6A3A",
+    desc:"Existe quando há outro processo idêntico em curso: mesmas partes, mesmo pedido e mesma causa de pedir. O segundo processo deve ser extinto. Verificar se o trabalhador ajuizou duas ações iguais em varas diferentes.",
+    dica:"Litispendência é como tentar comprar dois ingressos para o mesmo assento: um dos ingressos vai ser cancelado — o que chegou depois." },
+  { inc:"VII", label:"Coisa Julgada", cor:"#1A6A3A",
+    desc:"Quando a mesma questão já foi decidida definitivamente em outro processo (com trânsito em julgado). Impede novo julgamento sobre o mesmo objeto. É matéria de ordem pública — pode ser reconhecida de ofício.",
+    dica:"Coisa julgada é a 'foto final' do processo: aquela decisão não pode ser revelada de novo. O mesmo assunto não pode ser rejulgado." },
+  { inc:"VIII", label:"Conexão", cor:"#1A4A8C",
+    desc:"Quando duas causas têm o mesmo pedido ou a mesma causa de pedir, podem ser reunidas para julgamento conjunto, evitando decisões contraditórias. O juiz pode determinar de ofício ou a parte pode requerer.",
+    dica:"Conexão é como reunir dois processos irmãos na mesma sala de aula: mais eficiente e evita que o professor dê respostas contraditórias." },
+  { inc:"IX", label:"Incapacidade da Parte / Irregularidade da Representação", cor:"#E07B00",
+    desc:"Se o reclamante é incapaz (menor sem representação, interditado) ou se o advogado não está regularmente constituído (procuração vencida, sem poderes específicos). O juiz pode mandar regularizar antes de extinguir.",
+    dica:"É como ter um procurador sem procuração válida: ele pode falar, mas ninguém é obrigado a escutá-lo oficialmente." },
+  { inc:"X", label:"Convenção de Arbitragem", cor:"#5B2D8E",
+    desc:"Quando as partes previram solução arbitral para o conflito (possível para empregados de alto salário após a Reforma — art. 507-A, CLT: salário superior a 2x o teto do RGPS). Se existente e válida, o processo deve ser extinto.",
+    dica:"A arbitragem é o 'juízo privado' que as partes escolheram antes. Se escolheram esse caminho, não podem mudar de ideia e ir ao Judiciário." },
+  { inc:"XI", label:"Ausência de Legitimidade", cor:"#C0392B",
+    desc:"Legitimidade ad causam: a parte deve ter relação com o direito discutido. Ex.: reclamar direitos de outro trabalhador, reclamar contra empresa que não foi a empregadora. Pode ser arguida como preliminar ou reconhecida de ofício.",
+    dica:"Legitimidade é ter o 'crachá certo' para entrar na festa. Se você não é a pessoa certa para aquele processo, a segurança te barra na porta." },
+  { inc:"XII", label:"Falta de Interesse Processual", cor:"#C0392B",
+    desc:"O autor precisa demonstrar necessidade, utilidade e adequação da via judicial. Ex.: ação declaratória quando o autor já tem a certeza do direito; execução antes do inadimplemento. Sem interesse, o processo é extinto sem mérito.",
+    dica:"Interesse processual é a 'razão de ser' do processo. Sem razão para estar no Judiciário, o processo é dispensado antes de começar." },
+  { inc:"XIII", label:"Indevida Concessão do Benefício de Gratuidade", cor:"#1A9090",
+    desc:"O reclamado pode impugnar a declaração de hipossuficiência do reclamante quando ela não corresponder à realidade (ex.: reclamante com renda alta declarando ser pobre). Após a Reforma, a gratuidade pode ser revogada se comprovada capacidade financeira.",
+    dica:"A gratuidade da justiça é um privilégio para quem realmente precisa. Se o reclamante tem condições e declarou que não tem, o réu pode contestar." },
+];
+
+// 4. SENTENÇA — fases e estrutura
+const sentFases = [
+  { title:"Relatório", cor:"#2E78D2",
+    desc:"Resumo do processo: quem são as partes, o que foi pedido, o que foi contestado. É a 'capa' da decisão. Em processos sumaríssimos pode ser dispensado." },
+  { title:"Fundamentação", cor:"#D4A017",
+    desc:"O coração da sentença: análise das provas, das preliminares, das prejudiciais e do mérito. Deve ser completa sob pena de nulidade (art. 93, IX, CF)." },
+  { title:"Dispositivo", cor:"#1A9A4A",
+    desc:"A conclusão: procedente, improcedente ou parcialmente procedente. É a única parte que faz coisa julgada. Deve ser claro e específico." },
+  { title:"Custas e Honorários", cor:"#7B3DB0",
+    desc:"Fixação das custas (art. 789, CLT) e honorários advocatícios (art. 791-A, CLT — após Reforma: 5% a 15% para as partes representadas por advogado)." },
+];
+
+const sentItems = [
+  { icon:"📄", cor:"#2E78D2", label:"Relatório", tag:"Art. 832 CLT + Art. 489, I, CPC",
+    tagStyle:"background:#0E2A55;color:#7EB8FF;border:1px solid #2E5EA0",
+    desc:"Síntese do processo: identificação das partes, narração do que foi pedido na inicial, resumo da contestação e das provas produzidas. Pode ser dispensado no rito sumaríssimo (art. 852-I, CLT).",
+    dica:"Relatório é o 'era uma vez' da sentença: apresenta os personagens e o enredo antes de revelar o desfecho." },
+  { icon:"⚖️", cor:"#D4A017", label:"Apreciação das Preliminares", tag:"Primeira análise",
+    tagStyle:"background:#2A1C00;color:#FFD34E;border:1px solid #7A5000",
+    desc:"O juiz analisa primeiro as preliminares arguidas na contestação. Se acolhida a preliminar que extingue sem mérito → sentença terminativa. Se rejeitada → segue para o mérito.",
+    dica:"É a primeira 'peneira' do julgador: antes de decidir quem tem razão, ele verifica se o processo está em ordem para ser julgado." },
+  { icon:"⏰", cor:"#D4A017", label:"Prescrição e Decadência", tag:"Prejudiciais de mérito",
+    tagStyle:"background:#2A1C00;color:#FFD34E;border:1px solid #7A5000",
+    desc:"Se arguidas, o juiz decide antes do mérito. Prescrição trabalhista: 5 anos no curso do contrato, 2 anos após a extinção (art. 7º, XXIX, CF). Se acolhida → extinção com mérito (art. 487, II, CPC).",
+    dica:"Prescrição é o 'prazo de validade' do direito de cobrar. Passou o prazo, o juiz extingue — mas conta como decisão final (coisa julgada material)." },
+  { icon:"🔍", cor:"#1A9A4A", label:"Análise do Mérito (Fundamentação)", tag:"Art. 93, IX, CF",
+    tagStyle:"background:#0A2A18;color:#5FD899;border:1px solid #1A6A3A",
+    desc:"Apreciação de cada pedido: análise das provas (documentos, depoimentos, perícia), aplicação do direito, conclusão por pedido. A fundamentação deve ser completa — decisão sem fundamentação é nula (art. 93, IX, CF). O juiz não pode decidir por achismo.",
+    dica:"Fundamentação é o 'trabalho de casa' do juiz. Ele precisa explicar cada decisão com lógica e direito — não pode simplesmente dizer 'decido assim'." },
+  { icon:"🏁", cor:"#C0392B", label:"Dispositivo", tag:"A parte que vale",
+    tagStyle:"background:#2A0808;color:#FF8080;border:1px solid #8A2020",
+    desc:"A conclusão jurídica: cada pedido julgado procedente, improcedente ou parcialmente procedente, com os valores devidos. Só o dispositivo faz coisa julgada. Se a fundamentação diz uma coisa e o dispositivo diz outra, prevalece o dispositivo.",
+    dica:"Dispositivo é o veredicto do júri: é o que conta de verdade. Você pode discordar do raciocínio, mas o que executa é sempre o dispositivo." },
+  { icon:"💲", cor:"#7B3DB0", label:"Custas e Honorários", tag:"Arts. 789 e 791-A, CLT",
+    tagStyle:"background:#1A0A38;color:#C090FF;border:1px solid #5A30A0",
+    desc:"Custas: 2% sobre o valor da condenação ou acordo (mínimo R$ 10,64 — atualizado periodicamente). Honorários advocatícios: 5% a 15% sobre o valor da condenação (art. 791-A, CLT). O beneficiário da justiça gratuita pode ter honorários suspensos.",
+    dica:"Custas e honorários são o 'ticket' de saída do processo. Mesmo quem ganhou pode ter que pagar alguma coisa — depende do que foi pedido e do que foi concedido." },
+];
+
+// 5. RECURSOS
+const recursosData = [
+  { cor:"#2E78D2", nome:"Recurso Ordinário (RO)", fund:"Art. 895, CLT",
+    prazo:"8 dias úteis", pt:"azul",
+    cab:"Cabível contra sentenças definitivas ou terminativas das Varas do Trabalho. É o recurso padrão após a sentença — sobe da Vara do Trabalho para o TRT.",
+    dep:"Obrigatório para o reclamado (exceto Fazenda Pública, entidades filantrópicas, MPT e beneficiário da JG). Calculado sobre o valor da condenação.",
+    estrutura:"Endereçamento ao TRT → Qualificação das partes → Tempestividade (interposição no prazo de 8 dias) → Preparo (depósito recursal + custas) → Razões (impugnar cada ponto da sentença) → Pedido de reforma total ou parcial.",
+    dica:"RO é o 'elevador' da sentença: nasce na Vara (térreo) e sobe para o TRT (1º andar). Sem depósito recursal → o elevador não sobe." },
+  { cor:"#1A9090", nome:"Contrarrazões ao RO", fund:"Art. 900, CLT",
+    prazo:"8 dias úteis",  pt:"azul",
+    cab:"Peça do recorrido em resposta ao Recurso Ordinário. Apresentadas após a intimação do recorrido sobre o recurso interposto pelo adversário. Podem ser: de adesão (concordar com parte) ou de resistência (pedir manutenção da sentença).",
+    dep:"Não há depósito recursal nas contrarrazões.",
+    estrutura:"Endereçamento ao TRT → Qualificação → Tempestividade → Preliminar de não conhecimento (se o RO for intempestivo ou faltar pressuposto) → Mérito: defender a sentença ponto a ponto → Pedido de não provimento do RO.",
+    dica:"Contrarrazões são a 'defesa do placar'. A sentença foi favorável para você? Agora você precisa explicar ao TRT por que ela estava certa — antes que o adversário convença o contrário." },
+  { cor:"#1A7A4A", nome:"Recurso Ordinário Adesivo", fund:"Art. 997, CPC c/c art. 895, CLT",
+    prazo:"8 dias úteis (nas contrarrazões)", pt:"azul",
+    cab:"Cabível quando a parte, conformada com a sentença, muda de ideia ao ser intimada do recurso do adversário. Permite que o recorrido também recorra, de forma adesiva (subordinada ao recurso principal). Se o RO principal não for conhecido, o adesivo cai junto.",
+    dep:"Sim — mesmo pressuposto do RO principal.",
+    estrutura:"Deve ser apresentado junto com as contrarrazões (na mesma peça ou em peça apartada no mesmo prazo). Indicar: que se trata de recurso adesivo + os pontos da sentença que se pretende reformar + razões específicas.",
+    dica:"O RO Adesivo é como 'aproveitar a carona do adversário'. Ele entrou com recurso? Então eu também posso recorrer — mas meu recurso depende do dele. Se o dele cair, o meu cai junto." },
+  { cor:"#E07B00", nome:"Embargos de Declaração (ED)", fund:"Art. 897-A, CLT",
+    prazo:"5 dias úteis", pt:"laranja",
+    cab:"Cabíveis quando a decisão (sentença ou acórdão) contiver: obscuridade, contradição, omissão ou erro material. NÃO servem para rediscutir o mérito. INTERROMPEM (não suspendem) o prazo dos demais recursos — o prazo zera após o julgamento dos ED.",
+    dep:"Não exigem depósito recursal.",
+    estrutura:"Endereçamento ao mesmo juízo/turma que prolatou a decisão → Apontar especificamente qual vício existe (obscuridade / contradição / omissão / erro material) → Indicar a parte da decisão afetada → Pedir que o vício seja sanado → NÃO pedir reforma do mérito.",
+    dica:"ED é como devolver uma redação ao professor com um bilhete: 'Você deixou este ponto sem resposta' ou 'Esta parte ficou confusa'. O professor corrige — mas não muda a nota por isso." },
+  { cor:"#7B3DB0", nome:"Agravo de Instrumento (AI)", fund:"Art. 897, b, CLT",
+    prazo:"8 dias úteis", pt:"azul",
+    cab:"Usado para destrancar recurso (RR ou RO) que foi inadmitido (denegado) na origem. O AI não julga o mérito — apenas pede ao tribunal superior que reconheça que o recurso denegado deveria ter sido admitido. Interposto diretamente no TST.",
+    dep:"Depósito recursal equivalente ao do recurso que foi denegado.",
+    estrutura:"Endereçamento ao TST → Qualificação → Narrar que o recurso foi denegado + transcrever a decisão denegatória → Demonstrar os pressupostos de admissibilidade que foram erroneamente negados → Instruir com as peças obrigatórias (art. 897, §5º, CLT): decisão agravada, certidão de intimação, comprovante de depósito → Pedir que o agravo seja provido para que o recurso denegado seja processado.",
+    dica:"AI é a 'chave mestra' para abrir a porta que foi trancada. O juiz de origem disse 'não pode passar' — o AI vai ao TST pedir: 'pode sim, veja os motivos'." },
+  { cor:"#1A67C8", nome:"Recurso de Revista (RR)", fund:"Art. 896, CLT",
+    prazo:"8 dias úteis", pt:"azul",
+    cab:"Cabível contra acórdãos dos TRTs proferidos em Recurso Ordinário. Exige demonstração de: (1) violação de lei federal ou da CF; (2) divergência jurisprudencial entre TRTs ou entre TRT e TST; (3) contrariedade à súmula ou OJ do TST. É recurso de natureza extraordinária — não reexamina fatos e provas (Súmula 126, TST).",
+    dep:"Depósito recursal em dobro (o valor depositado no RO + novo depósito para o RR, limitado ao teto fixado pelo TST semestralmente).",
+    estrutura:"Endereçamento ao TST via TRT de origem → Qualificação → Demonstração de tempestividade → Preparo (depósito em dobro + custas) → Indicação do pressuposto específico de cabimento (violação de lei / divergência / contrariedade à súmula) → Transcrição do trecho divergente do acórdão (para divergência jurisprudencial) → Razões de mérito → Pedido de reforma do acórdão.",
+    dica:"O RR é como um clube com lista VIP: não basta querer entrar — você precisa demonstrar qual é o seu ingresso especial (violação de lei, divergência ou contrariedade à súmula). Sem apresentar o ingresso, a portaria não deixa passar." },
+  { cor:"#4A1A8E", nome:"Embargos no TST (E-RR / E-ED)", fund:"Art. 894, CLT",
+    prazo:"8 dias úteis", pt:"azul",
+    cab:"Cabíveis contra acórdãos das Turmas do TST quando houver: (1) divergência entre Turmas do TST sobre a mesma matéria; (2) contrariedade à súmula ou OJ do TST. Julgados pela SBDI-1 (dissídios individuais) ou SBDI-2 (mandado de segurança e ações de competência originária). Não há novo depósito recursal.",
+    dep:"Não há novo depósito recursal — aproveita o depósito já realizado.",
+    estrutura:"Endereçamento à SBDI-1 ou SBDI-2 do TST → Qualificação → Demonstração de tempestividade → Indicação da divergência entre Turmas (com transcrição dos acórdãos conflitantes) ou contrariedade à súmula/OJ → Razões de mérito → Pedido de uniformização e reforma do acórdão embargado.",
+    dica:"Embargos no TST são a 'reunião de cúpula' quando dois departamentos do TST batem cabeça. A SBDI é o 'conselho de diretores' que entra para dar a palavra final e pacificar o entendimento interno." },
+  { cor:"#8B0000", nome:"Recurso Extraordinário (RE)", fund:"Art. 102, III, CF/88",
+    prazo:"15 dias", pt:"laranja",
+    cab:"Cabível contra acórdãos do TST quando houver violação DIRETA à Constituição Federal. Exige demonstração de repercussão geral (art. 1.035, CPC) — sem ela, o STF não conhece o recurso. É o único recurso que sai da Justiça do Trabalho e sobe ao STF. Não reexamina fatos e provas nem lei federal — apenas matéria constitucional.",
+    dep:"Não há depósito recursal trabalhista. Segue as regras do processo civil.",
+    estrutura:"Endereçamento ao STF via TST → Qualificação → Demonstração de repercussão geral (questão constitucional relevante que transcende o interesse individual) → Indicação do dispositivo constitucional violado → Demonstração de que a violação é direta (não reflexa) → Razões constitucionais → Pedido de reforma do acórdão do TST.",
+    dica:"O RE é o 'recurso passaporte': é o único que atravessa a fronteira da Justiça do Trabalho e chega ao STF. Mas exige visto especial — a repercussão geral. Sem visto, o STF devolve na fronteira." },
+];
+
+/* ═══════════════════════════════════════
+   RENDER FUNCTIONS
+═══════════════════════════════════════ */
+
+function makeItem(it, idx, parentId) {
+  const el = document.createElement("div");
+  el.className = "item";
+  el.innerHTML = `
+    <div class="item-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="item-icon" style="background:${it.cor}22;border:1.5px solid ${it.cor}55;color:${it.cor}">${it.icon}</div>
+      <div class="item-label">${it.label}</div>
+      <div class="item-tag" style="${it.tagStyle}">${it.tag}</div>
+      <div class="item-chevron">▼</div>
+    </div>
+    <div class="item-body">
+      <div class="item-divider"></div>
+      <div class="item-desc">${it.desc}</div>
+      <div class="dica-box">
+        <div class="dica-label">💡 Dica de Memorização</div>
+        <div class="dica-text">${it.dica}</div>
+      </div>
+    </div>`;
+  return el;
+}
+
+function makePrelim(it) {
+  const el = document.createElement("div");
+  el.className = "item";
+  el.innerHTML = `
+    <div class="item-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="item-icon" style="background:${it.cor}22;border:1.5px solid ${it.cor}55;color:${it.cor};font-family:'JetBrains Mono',monospace;font-size:0.7rem">§${it.inc}</div>
+      <div class="item-label">${it.inc}. ${it.label}</div>
+      <div class="item-chevron">▼</div>
+    </div>
+    <div class="item-body">
+      <div class="item-divider"></div>
+      <div class="item-desc">${it.desc}</div>
+      <div class="dica-box">
+        <div class="dica-label">💡 Dica de Memorização</div>
+        <div class="dica-text">${it.dica}</div>
+      </div>
+    </div>`;
+  return el;
+}
+
+function makeRecurso(r) {
+  const el = document.createElement("div");
+  el.className = "recurso-card";
+  el.innerHTML = `
+    <div class="rc-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="rc-stripe" style="background:${r.cor}"></div>
+      <div class="rc-info">
+        <div class="rc-name">${r.nome}</div>
+        <div class="rc-sub">${r.fund}</div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-prazo prazo-${r.pt}">${r.prazo}</div>
+        <div class="rc-chev">▼</div>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-divider"></div>
+      <div class="rc-grid">
+        <div class="rci"><div class="rci-label">Cabimento</div><div class="rci-val">${r.cab}</div></div>
+        <div class="rci"><div class="rci-label">Depósito Recursal</div><div class="rci-val">${r.dep}</div></div>
+        <div class="rci" style="grid-column:1/-1"><div class="rci-label">Estrutura da Peça</div><div class="rci-val">${r.estrutura}</div></div>
+      </div>
+      <div class="dica-box">
+        <div class="dica-label">💡 Dica de Memorização</div>
+        <div class="dica-text">${r.dica}</div>
+      </div>
+    </div>`;
+  return el;
+}
+
+// Render all
+const recEl = document.getElementById("rec-estrutura");
+recItems.forEach((it,i) => recEl.appendChild(makeItem(it,i,"rec")));
+
+const contEl = document.getElementById("cont-estrutura");
+contItems.forEach((it,i) => contEl.appendChild(makeItem(it,i,"cont")));
+
+const prelimEl = document.getElementById("prelim-grid");
+prelimItems.forEach(it => prelimEl.appendChild(makePrelim(it)));
+
+const sentFasesEl = document.getElementById("sentenca-fases");
+sentFases.forEach(f => {
+  const d = document.createElement("div");
+  d.className = "fase-card";
+  d.style.borderTopColor = f.cor;
+  d.style.borderTopWidth = "3px";
+  d.style.borderTopStyle = "solid";
+  d.innerHTML = `<h4 style="color:${f.cor}">${f.title}</h4><p>${f.desc}</p>`;
+  sentFasesEl.appendChild(d);
+});
+
+const sentEl = document.getElementById("sent-estrutura");
+sentItems.forEach((it,i) => sentEl.appendChild(makeItem(it,i,"sent")));
+
+const recListEl = document.getElementById("recursos-list");
+recursosData.forEach(r => recListEl.appendChild(makeRecurso(r)));
+</script>
+
+
+<script>
+// ═══════════════════════════════
+// EXECUÇÃO DATA + RENDER
+// ═══════════════════════════════
+
+const etapas = [
+  {
+    step: "INÍCIO", cor: "#2E78D2", dotBorder: "#2E78D2",
+    stepBg: "#0E2A55", stepColor: "#7EB8FF",
+    titulo: "Início da Execução Trabalhista",
+    art: "Art. 876, CLT",
+    desc: "A fase de execução inicia após o trânsito em julgado da decisão condenatória ou após a homologação de acordo judicial. Pode ser iniciada de ofício pelo juiz ou a requerimento do credor (reclamante).",
+    alertas: [
+      { tipo:"prazo", icon:"📌", txt:"<strong>Título executivo judicial:</strong> sentença transitada em julgado ou acordo homologado. Também são títulos executivos os termos de conciliação firmados perante as Comissões de Conciliação Prévia (CCP)." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Competência:</strong> a execução corre perante a Vara do Trabalho que proferiu a sentença, salvo redistribuição por conveniência da execução." },
+    ],
+    dica: "Pense no trânsito em julgado como a 'luz verde' da corrida. O juiz apitou o fim do jogo de conhecimento — agora começa o jogo da execução: quem deve vai ter que pagar."
+  },
+  {
+    step: "FASE 1", cor: "#1A9090", dotBorder: "#1A9090",
+    stepBg: "#0A2A28", stepColor: "#5FD8D8",
+    titulo: "Liquidação de Sentença",
+    art: "Art. 879, CLT",
+    desc: "Etapa de transformar o valor ilíquido da sentença em um valor líquido e certo. A liquidação é necessária quando a sentença não fixou valor específico — ela determina quanto realmente é devido. Não se pode modificar ou inovar a sentença na liquidação (art. 879, §1º, CLT).",
+    alertas: [
+      { tipo:"prazo", icon:"📋", txt:"<strong>Formas de liquidação:</strong><br>1. <strong>Por cálculos:</strong> o perito contábil ou a própria parte apresenta memória de cálculo (mais comum).<br>2. <strong>Por arbitramento:</strong> quando depende de avaliação técnica específica.<br>3. <strong>Por procedimento comum (artigos):</strong> quando é necessário liquidar por meio de processo incidental de conhecimento." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Regra de ouro:</strong> na liquidação NÃO se discute o mérito da sentença. O que foi decidido, foi decidido. Só se apura o quanto." },
+      { tipo:"prazo", icon:"⏱️", txt:"<strong>Prazo para manifestação das partes:</strong> 8 dias (prazo comum) após intimadas dos cálculos apresentados. O silêncio no prazo gera <strong>preclusão</strong> (art. 879, §2º, CLT)." },
+    ],
+    dica: "Liquidação é como calcular a conta do restaurante. O juiz já disse 'você come e paga' — a liquidação é o garçom trazendo a conta com os valores reais de cada item pedido."
+  },
+  {
+    step: "FASE 2", cor: "#D4A017", dotBorder: "#D4A017",
+    stepBg: "#2A1C00", stepColor: "#FFD34E",
+    titulo: "Notificação para Pagamento Voluntário",
+    art: "Art. 880, CLT",
+    desc: "Liquidado o valor, o devedor (executado) é notificado/citado para efetuar o pagamento voluntário. Este é o momento em que se dá ao devedor a chance de pagar sem coerção. Se pagar: encerra-se a execução. Se não pagar: inicia-se a fase de constrição.",
+    alertas: [
+      { tipo:"prazo", icon:"⏱️", txt:"<strong>Prazo para pagamento voluntário:</strong> 48 horas após a citação do oficial de justiça. O devedor pode: pagar integralmente OU garantir o juízo (penhora de bens, dinheiro ou seguro garantia)." },
+      { tipo:"verde", icon:"✅", txt:"<strong>Pagamento integral:</strong> encerra a execução imediatamente. O processo é extinto com satisfação do crédito." },
+      { tipo:"perigo", icon:"🚨", txt:"<strong>Sem pagamento e sem garantia:</strong> o oficial de justiça procede à penhora de bens, de ofício, na mesma diligência." },
+    ],
+    dica: "As 48 horas são a 'última chance amigável'. É como o cobrador bater na porta antes de acionar o advogado. Se a porta não abrir, ele volta com o oficial de justiça."
+  },
+  {
+    step: "FASE 3", cor: "#C0392B", dotBorder: "#C0392B",
+    stepBg: "#2A0808", stepColor: "#FF9090",
+    titulo: "Penhora de Bens (Constrição Patrimonial)",
+    art: "Art. 880 + Art. 835, CPC",
+    desc: "Se o devedor não paga nem garante o juízo no prazo de 48 horas, inicia-se a penhora: bloqueio/constrição de bens do devedor para garantir o pagamento. O executado pode oferecer bens à penhora ou indicar bens penhoráveis. A ordem de preferência da penhora segue o art. 835 do CPC (aplicado subsidiariamente).",
+    alertas: [
+      { tipo:"prazo", icon:"📋", txt:"<strong>Formas de garantia do juízo (art. 835, CPC):</strong>" },
+    ],
+    penhora: [
+      "Dinheiro, em espécie ou em depósito ou aplicação em instituição financeira",
+      "Títulos da dívida pública da União, dos Estados e do DF com cotação em mercado",
+      "Títulos e valores mobiliários com cotação em mercado",
+      "Veículos de via terrestre",
+      "Bens imóveis",
+      "Bens móveis em geral",
+      "Semoventes",
+      "Navios e aeronaves",
+      "Ações e quotas de sociedades simples e empresárias",
+      "Percentual do faturamento de empresa devedora",
+      "Pedras e metais preciosos",
+      "Direitos aquisitivos derivados de promessa de compra e venda",
+      "Outros direitos",
+    ],
+    alertasPos: [
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>SISBAJUD (BacenJud):</strong> o juiz pode bloquear valores em contas bancárias do devedor eletronicamente. Ferramenta muito usada na prática. É a penhora online." },
+      { tipo:"atencao", icon:"⭐", txt:"<strong>Seguro Garantia Judicial:</strong> o executado pode substituir a penhora por seguro garantia emitido por seguradora. Muito cobrado em provas!" },
+    ],
+    dica: "A ordem de penhora é a 'fila de prioridade' do credor. Dinheiro vivo está na frente porque é o mais fácil de executar. Pedras preciosas estão no fim porque são difíceis de avaliar e vender."
+  },
+  {
+    step: "FASE 4", cor: "#7B3DB0", dotBorder: "#7B3DB0",
+    stepBg: "#1A0A38", stepColor: "#C090FF",
+    titulo: "Embargos à Execução e Impugnação",
+    art: "Art. 884, CLT",
+    desc: "Após garantido o juízo (penhora ou depósito), o executado pode apresentar embargos à execução — é a forma de defesa na fase de execução. Os embargos podem questionar: excesso de execução, nulidade do título, pagamento já efetuado, prescrição, entre outros.",
+    alertas: [
+      { tipo:"prazo", icon:"⏱️", txt:"<strong>Prazo para embargos:</strong> 5 dias após a garantia do juízo (art. 884, CLT). Sem garantia do juízo → sem embargos (regra geral)." },
+      { tipo:"prazo", icon:"📋", txt:"<strong>Matérias arguíveis nos embargos (art. 884, §1º, CLT):</strong> falta de defesa ou nulidade da citação; existência de pressuposto processual; nulidade da execução; excesso de execução; pagamento já realizado; novação, transação ou prescrição da dívida." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Impugnação dos cálculos:</strong> o exequente (credor) também pode apresentar impugnação se achar que os cálculos estão errados por excesso ou por omissão. Prazo idêntico: 5 dias." },
+      { tipo:"perigo", icon:"🚨", txt:"<strong>Atenção:</strong> nos embargos à execução trabalhista NÃO se discute o mérito da sentença — isso já foi decidido. Só se questiona a forma da execução." },
+    ],
+    dica: "Embargos à execução são a 'contestação do jogo de execução'. Você não pode mais discutir se devia ou não — o juiz já disse que você deve. Só pode questionar: quanto você deve, como está sendo cobrado e se já pagou."
+  },
+  {
+    step: "FASE 5", cor: "#1A7A4A", dotBorder: "#1A7A4A",
+    stepBg: "#0A2A18", stepColor: "#5FD899",
+    titulo: "Audiência de Instrução e Julgamento (Execução)",
+    art: "Art. 884, CLT",
+    desc: "Se houver embargos com matéria de fato (que exija produção de provas), poderá ser designada audiência de instrução na fase de execução. Na prática, é menos comum — muitas questões são resolvidas apenas com documentos.",
+    alertas: [
+      { tipo:"prazo", icon:"📋", txt:"<strong>Resultado possível:</strong> (1) embargos acolhidos → execução é extinta ou o valor é reduzido; (2) embargos rejeitados → execução prossegue normalmente para o leilão ou pagamento." },
+    ],
+    dica: "É raro chegar em audiência na execução — a maioria das questões resolve por documentos. Mas se precisar de testemunha ou prova oral, a audiência existe."
+  },
+  {
+    step: "FASE 6", cor: "#E07B00", dotBorder: "#E07B00",
+    stepBg: "#2A1800", stepColor: "#FFB84D",
+    titulo: "Agravo de Petição (AP) — Recurso na Execução",
+    art: "Art. 897, a, CLT",
+    desc: "O recurso cabível na fase de execução trabalhista é o Agravo de Petição (AP) — não o Recurso Ordinário. O AP é interposto contra decisões do juiz na fase de execução (ex.: decisão sobre embargos, avaliação de bens, nulidade da penhora).",
+    alertas: [
+      { tipo:"prazo", icon:"⏱️", txt:"<strong>Prazo:</strong> 8 dias úteis (art. 897, CLT). Sobe da Vara do Trabalho para o TRT." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Pressuposto específico:</strong> o AP deve delimitar, justificadamente, as matérias e os valores objeto de discordância — sob pena de não ser conhecido (art. 897, §1º, CLT)." },
+      { tipo:"prazo", icon:"📌", txt:"<strong>Garantia do juízo:</strong> é necessária para a interposição do AP (o juízo deve estar garantido por penhora ou depósito)." },
+    ],
+    dica: "AP é o 'RO da execução' — mas com regra especial: você não pode simplesmente dizer 'discordo de tudo'. Precisa apontar exatamente o quê e quanto você contesta. É como reclamar da conta do restaurante item por item, não reclamar do restaurante inteiro."
+  },
+  {
+    step: "FASE 7", cor: "#C0392B", dotBorder: "#C0392B",
+    stepBg: "#2A0808", stepColor: "#FF9090",
+    titulo: "Leilão Judicial",
+    art: "Art. 888, CLT",
+    desc: "Se a execução não for satisfeita com pagamento voluntário nem com a penhora de dinheiro (ou valores suficientes em conta), os bens penhorados são levados a leilão judicial para que o produto da venda satisfaça o crédito do exequente.",
+    alertas: [
+      { tipo:"prazo", icon:"📋", txt:"<strong>Quem pode arrematar:</strong> qualquer pessoa, exceto o devedor (salvo autorização judicial) e o juiz, serventuários e advogados do processo." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Arrematação abaixo do valor:</strong> o juiz pode homologar a arrematação por valor inferior ao avaliado, desde que não seja vil (preço vil = menos de 50% do valor de avaliação, em regra)." },
+      { tipo:"verde", icon:"✅", txt:"<strong>Produto do leilão:</strong> quita o débito. Se o valor superar o crédito, o saldo é devolvido ao devedor." },
+    ],
+    dica: "O leilão é o 'plano C'. Plano A: paga voluntariamente. Plano B: penhora de dinheiro em conta. Plano C: vende o bem em leilão e usa o dinheiro para pagar. Se nem isso resolver, busca-se outros bens."
+  },
+  {
+    step: "FIM", cor: "#1A9A4A", dotBorder: "#1A9A4A",
+    stepBg: "#0A2A18", stepColor: "#5FD899",
+    titulo: "Encerramento do Processo",
+    art: "Art. 884, CLT",
+    desc: "O processo é encerrado após o cumprimento integral da execução (pagamento do crédito + encargos) ou por outra forma de extinção prevista em lei (ex.: acordo na execução, renúncia do crédito, prescrição intercorrente).",
+    alertas: [
+      { tipo:"verde", icon:"✅", txt:"<strong>Extinção com satisfação:</strong> crédito integralmente pago. O processo é arquivado definitivamente." },
+      { tipo:"atencao", icon:"⚠️", txt:"<strong>Prescrição intercorrente:</strong> após a Reforma Trabalhista (Lei 13.467/17), passou a ser aplicável ao processo do trabalho (art. 11-A, CLT). Se o exequente ficar inerte por mais de 2 anos após provocado pelo juízo, ocorre a prescrição intercorrente." },
+      { tipo:"prazo", icon:"📋", txt:"<strong>Acordo na execução:</strong> é possível! As partes podem celebrar acordo mesmo na fase de execução — o juiz homologa e extingue o processo." },
+    ],
+    dica: "O encerramento é a 'luz vermelha' final da corrida. Ou o credor recebeu tudo (satisfação), ou o processo morreu de outra forma (prescrição intercorrente, renúncia). De qualquer jeito: acabou a corrida."
+  },
+];
+
+const resumoData = [
+  { ev:"Início da Execução", art:"Art. 876, CLT" },
+  { ev:"Liquidação de Sentença", art:"Art. 879, CLT" },
+  { ev:"Prazo para manifestação (liquidação)", art:"Art. 879, §2º — 8 dias" },
+  { ev:"Notificação para pagamento voluntário", art:"Art. 880, CLT" },
+  { ev:"Prazo para pagar ou garantir", art:"Art. 880 — 48 horas" },
+  { ev:"Penhora (ordem de preferência)", art:"Art. 835, CPC (subsidiário)" },
+  { ev:"Embargos à execução", art:"Art. 884, CLT — 5 dias" },
+  { ev:"Audiência de instrução (execução)", art:"Art. 884, CLT" },
+  { ev:"Agravo de Petição (recurso)", art:"Art. 897, a, CLT — 8 dias" },
+  { ev:"Leilão Judicial", art:"Art. 888, CLT" },
+  { ev:"Encerramento do processo", art:"Art. 884, CLT" },
+];
+
+// Render timeline
+const tlEl = document.getElementById("timeline");
+etapas.forEach(e => {
+  const item = document.createElement("div");
+  item.className = "tl-item";
+  item.style.setProperty('--dot-border', e.dotBorder);
+
+  // build alerts html
+  let alertsHtml = (e.alertas || []).map(a =>
+    `<div class="alert ${a.tipo}"><div class="alert-icon">${a.icon}</div><div>${a.txt}</div></div>`
+  ).join('');
+
+  let penhoraHtml = '';
+  if (e.penhora) {
+    penhoraHtml = '<div class="penhora-list">' +
+      e.penhora.map((p,i) => `<div class="penhora-item"><div class="penhora-num">${i+1}</div><div class="penhora-txt">${p}</div></div>`).join('') +
+    '</div>';
+  }
+
+  let alertsPosHtml = (e.alertasPos || []).map(a =>
+    `<div class="alert ${a.tipo}"><div class="alert-icon">${a.icon}</div><div>${a.txt}</div></div>`
+  ).join('');
+
+  item.innerHTML = `
+    <style>.tl-item:nth-child(${tlEl.children.length + 1})::before { border-color: ${e.dotBorder}; }</style>
+    <div class="tl-card" onclick="this.classList.toggle('open')">
+      <div class="tc-header">
+        <div class="tc-step" style="background:${e.stepBg};color:${e.stepColor};border:1px solid ${e.dotBorder}40">${e.step}</div>
+        <div class="tc-title">${e.titulo}</div>
+        <div class="tc-art">${e.art}</div>
+        <div class="tc-chev">▼</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-divider"></div>
+        <div class="tc-desc">${e.desc}</div>
+        ${alertsHtml}
+        ${penhoraHtml}
+        ${alertsPosHtml}
+        <div class="dica-box">
+          <div class="dica-label">💡 Dica de Memorização</div>
+          <div class="dica-text">${e.dica}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Set dot color via inline style
+  item.style.cssText += `--dot-color: ${e.dotBorder}`;
+  tlEl.appendChild(item);
+});
+
+// Fix dots color
+document.querySelectorAll('.tl-item').forEach((el, i) => {
+  const cor = etapas[i].dotBorder;
+  el.style.setProperty('--dot-border', cor);
+  const style = document.createElement('style');
+  const cls = `dot-${i}`;
+  el.classList.add(cls);
+  style.textContent = `.${cls}::before { border-color: ${cor} !important; background: ${cor}33; }`;
+  document.head.appendChild(style);
+});
+
+// Render resumo
+const tbody = document.getElementById("resumo-body");
+resumoData.forEach((r, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td class="art-cell">${String(i+1).padStart(2,'0')}</td><td class="ev-cell">${r.ev}</td><td class="art-cell">${r.art}</td>`;
+  tbody.appendChild(tr);
+});
+
+
+</script>
+</body>
+</html>
